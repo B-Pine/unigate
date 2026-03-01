@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <circle cx="32" cy="32" r="30" fill="#fff" stroke="#F5C842" stroke-width="4"/>
+  <text x="32" y="40" text-anchor="middle" font-family="Arial,sans-serif" font-weight="800" font-size="32" fill="#1a3a6b">U</text>
+  <polygon points="22,14 32,8 42,14 42,16 22,16" fill="#1a3a6b"/>
+  <rect x="30" y="8" width="4" height="2" fill="#1a3a6b"/>
+  <circle cx="32" cy="7" r="2" fill="#F5C842"/>
+</svg>
