@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { usePastPapers } from "@/hooks/use-past-papers";
-import { downloadWithAuth } from "@/lib/api";
+import { downloadWithAuth, getApiUrl } from "@/lib/api";
 import { LEVELS } from "@/lib/past-paper-constants";
 import { Download } from "lucide-react";
 
@@ -20,7 +20,7 @@ export default function StudentPastPapers() {
 
   const handleAnswerDownload = async (paperId: number, filename: string) => {
     try {
-      await downloadWithAuth(`/api/past-papers/${paperId}/download-answer`, filename);
+      await downloadWithAuth(`/past-papers/${paperId}/download-answer`, filename);
     } catch {
       alert("Failed to download answer file.");
     }
@@ -86,7 +86,7 @@ export default function StudentPastPapers() {
           </div>
           <div style={{ display: "flex", gap: 6, alignItems: "center" }}>
             <a
-              href={`/api/past-papers/${p.id}/download`}
+              href={getApiUrl(`/past-papers/${p.id}/download`)}
               className="action-btn"
               style={{ display: "inline-flex", alignItems: "center", gap: 4, textDecoration: "none" }}
             >

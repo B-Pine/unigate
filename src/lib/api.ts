@@ -1,4 +1,4 @@
-const BASE_URL = "/api";
+const BASE_URL = import.meta.env.VITE_API_URL || "/api";
 
 interface ApiOptions {
   method?: string;
@@ -52,9 +52,14 @@ export async function api<T = any>(endpoint: string, options: ApiOptions = {}): 
   return response.json();
 }
 
+export function getApiUrl(path: string): string {
+  return `${BASE_URL}${path}`;
+}
+
 export async function downloadWithAuth(url: string, filename: string) {
+  const fullUrl = url.startsWith("http") ? url : `${BASE_URL}${url.startsWith("/api") ? url.replace("/api", "") : url}`;
   const token = localStorage.getItem("unigate_token");
-  const res = await fetch(url, {
+  const res = await fetch(fullUrl, {
     headers: token ? { Authorization: `Bearer ${token}` } : {},
   });
   if (!res.ok) throw new Error("Download failed");

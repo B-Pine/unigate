@@ -5,7 +5,7 @@ import { useState, useRef } from "react";
 import { usePastPapers } from "@/hooks/use-past-papers";
 import { useMyPaymentStatus, useSubmitPayment } from "@/hooks/use-payments";
 import { useAuth } from "@/contexts/AuthContext";
-import { downloadWithAuth } from "@/lib/api";
+import { downloadWithAuth, getApiUrl } from "@/lib/api";
 import { Link } from "react-router-dom";
 import { LEVELS, SUBJECTS_BY_LEVEL } from "@/lib/past-paper-constants";
 
@@ -82,8 +82,8 @@ const PastPapers = () => {
     }
     try {
       const endpoint = isAnswer
-        ? `/api/past-papers/${paperId}/download-answer`
-        : `/api/past-papers/${paperId}/download`;
+        ? `/past-papers/${paperId}/download-answer`
+        : `/past-papers/${paperId}/download`;
       await downloadWithAuth(endpoint, filename);
     } catch {
       alert("Failed to download file.");
@@ -92,7 +92,7 @@ const PastPapers = () => {
 
   const handleAnswerDownload = async (paperId: number, filename: string) => {
     try {
-      await downloadWithAuth(`/api/past-papers/${paperId}/download-answer`, filename);
+      await downloadWithAuth(`/past-papers/${paperId}/download-answer`, filename);
     } catch {
       alert("Failed to download answer file.");
     }
@@ -337,7 +337,7 @@ const PastPapers = () => {
                           {/* Question PDF download */}
                           {p.category === "free" ? (
                             <a
-                              href={`/api/past-papers/${p.id}/download`}
+                              href={getApiUrl(`/past-papers/${p.id}/download`)}
                               className="uni-btn-outline"
                               style={{ fontSize: 12, padding: "5px 14px", gap: 4 }}
                             >
